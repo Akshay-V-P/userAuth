@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/styles/userLogin.css">
+  <div class="container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Login</header>
+      <form action="/user/login" id="submitForm" method="post">
+        <input type="text" id="email" name="email" placeholder="Enter your email">
+        <input type="password" id="password" name="password" placeholder="Enter your password">
+        <a href="#">Forgot password?</a>
+        <input type="submit" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <a href="/user/register">Signup</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  const form = document.getElementById('submitForm')
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+      if(email == "" || password == ""){
+          Swal.fire({
+          title: "Require all fields",
+          text: "",
+          icon: "error"
+        });
+          return;
+      }else if(!isValidEmail(email)){
+          Swal.fire({
+          title: "INVALID EMAIL",
+          text: "",
+          icon: "error"
+        });
+          return
+      }
+
+      e.target.submit()
+  })
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+</script>
