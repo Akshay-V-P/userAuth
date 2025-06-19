@@ -4,6 +4,20 @@ const userRoutes = require('./routes/user')
 const adminRoutes = require('./routes/admin')
 const path = require('path')
 const connectDb = require('./db/connectDB')
+const nocache = require('nocache')
+const session = require('express-session')
+
+
+
+app.use(nocache())
+app.use(session({
+    secret: "secretKey",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}))
 
 // view engine setup
 app.set('view engine', 'hbs')

@@ -1,20 +1,22 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controller/userController')
+const auth = require('../middleware/auth')
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json())
 
-router.get('/login', (req, res) => {
-    res.render('user/login')
-})
+router.get('/login',auth.isLogin, userController.loadLogin)
 
-router.get('/register', (req, res) => {
-    res.render('user/register')
-})
+router.get('/register', auth.isLogin, userController.loadRegister)
 
-router.post('/register', (req, res) => {
-    console.log(req.body)
-    res.send("success")
-})
+router.get('/home', userController.userHome)
+
+router.get('/logout', userController.logout)
+
+router.post('/register', userController.registerUser)
+
+router.post('/login', userController.loginUser)
+
 
 module.exports = router

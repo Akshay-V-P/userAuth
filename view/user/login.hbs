@@ -4,6 +4,7 @@
     <div class="login form">
       <header>Login</header>
       <form action="/user/login" id="submitForm" method="post">
+      <input type="text" id="message" value="{{{message}}}" name="message" hidden>
         <input type="text" id="email" name="email" placeholder="Enter your email">
         <input type="password" id="password" name="password" placeholder="Enter your password">
         <a href="#">Forgot password?</a>
@@ -45,5 +46,14 @@
 
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+const message = document.getElementById('message').value;
+if(message){
+  Swal.fire({
+    title: message,
+    text: "",
+    icon: "error"
+  });
 }
 </script>

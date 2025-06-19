@@ -23,7 +23,7 @@
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
       const email = document.getElementById('email').value
-      const password = document.getElementById('password').value
+      const password = document.getElementById('password').value.trim()
       const conformPassword = document.getElementById('conformPassword').value
       if(email == "" || password == "" || conformPassword == ""){
           Swal.fire({
@@ -63,5 +63,12 @@
 }
 
 const message = document.getElementById('message').value;
+if(message){
+  Swal.fire({
+    title: message,
+    text: "",
+    icon: "error"
+  });
+}
 
 </script>

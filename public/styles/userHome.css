@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #009579;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logout-container {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.logout-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.container {
+    max-width: 600px;
+    width: 90%;
+    padding: 20px;
+}
+
+.welcome-box {
+    background: rgb(218, 218, 218);
+    padding: 60px 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transform: translateY(-10px);
+}
+
+h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .logout-container {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .logout-button {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .welcome-box {
+        padding: 40px 30px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    p {
+        font-size: 1.1rem;
+    }
+}
