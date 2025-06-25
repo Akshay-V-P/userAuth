@@ -1,15 +1,118 @@
-<link rel="stylesheet" href="/styles/adminDashboard.css">
-<a href="/admin/logout" id="logoutBtn">Logout</a>
-<div class="search-container">
+ <link rel="stylesheet" href="/styles/adminDashboard.css">
+ <a href="/admin/logout" id="logoutBtn">Logout</a>
+ <div class="search-container">
         <h1>Search Users</h1>
         
         <div class="search-box">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search by name, email, or ID...">
-            <button class="search-btn" onclick="searchUsers()">Search</button>
+            <form action="/admin/search" method="post" id="search-form">
+                <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+
+                <input type="text" name="email" class="search-input" id="searchInput" placeholder="Search by email">
+                <input type="submit" value="search" class="search-btn">
+            </form>
         </div>
 
-        <div class="results" id="results" style="display: none;">
-            <div class="results-count" id="resultsCount"></div>
-            <div id="userResults"></div>
+        <div class="search-container" id="edit-container">
+            <span id="close-btn">X</span>
+            <div class="search-box" id="edit-box">
+                <form action="/admin/edit" method="post" id="edit-form">
+                    <input type="text" class="search-input" id="edit-area" name="email" placeholder="user@gmail.com">
+                    <input type="text" class="search-input" id="password-area" name="password" placeholder="New password">
+                    <input type="submit" value="Save" class="edit-btn">
+                </form>
+            </div>
         </div>
-</div>
+        
+
+        <div class="results" id="results" style="display: block;">
+            {{#each users}}
+            <div id="userResults">
+                <p><b>Username:</b> <span>{{this.username}}</span></p>
+                <p><b>Email:</b> <span>{{this.email}}</span></p>
+                <button class="edit-btn" onclick="showEdit('{{this.email}}')">Edit</button>
+                <form action="/admin/delete/{{this._id}}" method="post">
+                    <input type="submit" id="delete" value="Delete">
+                </form>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+<script>
+        const editContainer = document.getElementById("edit-container")
+    function showEdit(email){
+        editContainer.style.display = "block"
+        document.getElementById("edit-area").value = email
+    }
+
+document.getElementById("edit-form").addEventListener("submit", (e)=>{
+    e.preventDefault()
+    const passwordArea = document.getElementById("password-area").value.trim()
+        if(passwordArea == ""){
+            Swal.fire({
+            title: "Input any value",
+            text: "",
+            icon: "error"
+            });
+
+            return;
+        }else if(passwordArea.length < 8){
+            Swal.fire({
+            title: "Password should be More than 8 charactors",
+            text: "",
+            icon: "error"
+            });
+            return;
+        }
+
+        e.target.submit()
+
+})
+
+document.getElementById("close-btn").addEventListener("click", ()=>{
+    editContainer.style.display = "none"
+})
+        
+
+
+    const searchForm = document.getElementById('search-form')
+    searchForm.addEventListener('submit', (e)=>{
+        e.preventDefault()
+        const value = searchForm.elements['email'].value.trim()
+        if(value == "all"){
+            e.target.submit()
+            return
+        }else if(value == ""){
+            Swal.fire({
+            title: "Input any value",
+            text: "",
+            icon: "error"
+            });
+          return
+        }else if(!isValidEmail(value)){
+            Swal.fire({
+            title: "Input an Email",
+            text: "",
+            icon: "error"
+            });
+          return
+        }
+
+        e.target.submit()
+        
+    })
+
+ function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+const message = document.getElementById('message').value;
+if(message){
+  Swal.fire({
+    title: message,
+    text: "",
+    icon: "error"
+  });
+}
+    
+</script>

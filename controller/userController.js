@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 
 const registerUser = async (req, res) => {
     try {
-        const { email, password } = req.body
+        const { email, password, username } = req.body
         const user = await userSchema.findOne({email:email})
         if (user) {
             return res.render('user/login', { message: "User already exists"})
@@ -12,7 +12,8 @@ const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = new userSchema({
             email,
-            password:hashedPassword
+            password: hashedPassword,
+            username
         })
         await newUser.save()
         res.render('user/login', {message: "User created succesfully"})
@@ -34,20 +35,24 @@ const loginUser = async(req, res) => {
     try {
         const { email, password } = req.body
         const userExists = await userSchema.findOne({ email: email })
-        const passwordMatch = await bcrypt.compare(password, userExists.password)
         if (!userExists) {
             return res.render('user/register', {message: "User not found"})
-        } else if (!passwordMatch) {
+        }
+
+        const passwordMatch = await bcrypt.compare(password, userExists.password)
+        
+        if (!passwordMatch) {
             return res.render('user/login', {message: "Incorrect password"})
         }
         req.session.user = true;
-        res.redirect('/user/home')
+        res.redirect('/user/home/')
     } catch (error) {
-        
+        console.log(error)
     }
 }
 
 const userHome = (req, res) => {
+
     res.render('user/userHome')
 }
 

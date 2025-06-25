@@ -5,9 +5,9 @@
       <header>Login</header>
       <form action="/user/login" id="submitForm" method="post">
       <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+        <input type="text" name="username" id="username" placeholder="Enter Username">
         <input type="text" id="email" name="email" placeholder="Enter your email">
         <input type="password" id="password" name="password" placeholder="Enter your password">
-        <a href="#">Forgot password?</a>
         <input type="submit" class="button" value="Login">
       </form>
       <div class="signup">
@@ -25,7 +25,8 @@
     e.preventDefault();
       const email = document.getElementById('email').value
       const password = document.getElementById('password').value
-      if(email == "" || password == ""){
+      const username = document.getElementById('username').value
+      if(email == "" || password == "" || username == ""){
           Swal.fire({
           title: "Require all fields",
           text: "",
@@ -39,6 +40,13 @@
           icon: "error"
         });
           return
+      }else if(!isValidUsername(username)){
+          Swal.fire({
+          title: "Invalid Username",
+          text: "",
+          icon: "error"
+        });
+          return
       }
 
       e.target.submit()
@@ -48,12 +56,15 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function isValidUsername(username){
+  return /^[a-z0-9_]+$/.test(username)
+}
+
 const message = document.getElementById('message').value;
 if(message){
   Swal.fire({
     title: message,
     text: "",
-    icon: "error"
   });
 }
 </script>

@@ -9,6 +9,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         timestamps:true
+    },
+    username: {
+        type: String,
+        required: true,
+        timestamps:true
     }
 })
 

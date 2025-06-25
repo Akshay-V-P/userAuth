@@ -5,6 +5,7 @@
       <header>Signup</header>
       <form action="/user/register" method="post" id="submitForm">
       <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+        <input name="username" type="text" id="username" placeholder="Enter Username">
         <input name="email" type="text" id="email" placeholder="Enter your email">
         <input name="password" type="password" id="password" placeholder="Create a password">
         <input name="conformPassword" type="password" id="conformPassword" placeholder="Confirm your password">
@@ -25,7 +26,8 @@
       const email = document.getElementById('email').value
       const password = document.getElementById('password').value.trim()
       const conformPassword = document.getElementById('conformPassword').value
-      if(email == "" || password == "" || conformPassword == ""){
+      const username = document.getElementById('username').value
+      if(email == "" || password == "" || conformPassword == "" || username == ""){
           Swal.fire({
           title: "Require all fields",
           text: "",
@@ -35,6 +37,13 @@
       }else if(!isValidEmail(email)){
           Swal.fire({
           title: "INVALID EMAIL",
+          text: "",
+          icon: "error"
+        });
+          return
+      }else if(!isValidUsername(username) && username.length > 6){
+          Swal.fire({
+          title: "Usernames can only have: \n- Lowercase Letters (a-z) \n- Numbers (0-9) \n- Underscores (_)\n Length above 6",
           text: "",
           icon: "error"
         });
@@ -60,6 +69,10 @@
 
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidUsername(username){
+  return /^[a-z0-9_]+$/.test(username)
 }
 
 const message = document.getElementById('message').value;

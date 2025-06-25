@@ -10,7 +10,7 @@ router.get('/login',auth.isLogin, userController.loadLogin)
 
 router.get('/register', auth.isLogin, userController.loadRegister)
 
-router.get('/home', userController.userHome)
+router.get('/home',auth.checkSession, userController.userHome)
 
 router.get('/logout', userController.logout)
 

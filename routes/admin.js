@@ -14,5 +14,15 @@ router.get('/dashboard', adminAuth.checkSession, adminController.loadDashboard)
 
 router.get('/logout', adminController.logout)
 
+router.post('/search', adminController.searchPost)
+
+router.get('/search', adminController.searchUser)
+
+router.post('/edit', adminController.editUser)
+
+router.post('/delete/:_id', adminController.deleteUser)
+
+
+
 
 module.exports = router

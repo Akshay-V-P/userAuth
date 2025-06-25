@@ -11,6 +11,7 @@
         }
 
         .search-container {
+            position: relative;
             max-width: 800px;
             margin: 0 auto;
             background: white;
@@ -29,14 +30,20 @@
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
+            justify-content: space-between;
+        }
+
+        #searchInput{
+            width: 580px;
         }
 
         .search-input {
             flex: 1;
             padding: 12px 15px;
-            border: 2px solid #ddd;
+            border: 2px solid gray;
             border-radius: 8px;
             font-size: 16px;
+            color: black;
         }
 
         .search-input:focus {
@@ -52,6 +59,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            margin-right: 18px;
         }
 
         .search-btn:hover {
@@ -112,4 +120,72 @@
         #logoutBtn:hover {
             background-color: #45a049;
             transform: translateY(-4px);
+        }
+
+        #userResults{
+            background-color: rgb(194, 194, 194);
+            border-radius: 6px;
+            padding: 12px;
+            color: #262626;
+            margin-bottom: 28px;
+        }
+
+        .edit-btn{
+            margin-top: 24px;
+            background-color: #4CAF50;
+            padding: 6px;
+            width: 60px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+        }
+
+        #edit-btn{
+            background-color: #4CAF50;
+            padding: 6px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .delete-btn{
+            background-color: rgb(235, 45, 45);
+            padding: 6px;
+            width: 60px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+        }
+
+        #edit-container{
+            position: absolute;
+            left: 2%;
+            width: 96%;
+            display: none;
+            height: 32%;
+        }
+
+        #edit-box{
+            min-height: 100%;
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-form{
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .edit-form *{
+            margin-bottom: 24px;
+        }
+
+        #close-btn{
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            cursor: pointer;
         }
