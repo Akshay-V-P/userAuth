@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/styles/userLogin.css">
+<div id="loader">Loading...</div>
   <div class="container">
     <input type="checkbox" id="check">
     <div class="login form">
@@ -50,6 +51,7 @@
       }
 
       e.target.submit()
+      document.getElementById("loader").style.display = "block";
   })
 
   function isValidEmail(email) {

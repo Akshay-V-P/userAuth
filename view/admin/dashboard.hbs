@@ -1,5 +1,8 @@
  <link rel="stylesheet" href="/styles/adminDashboard.css">
  <a href="/admin/logout" id="logoutBtn">Logout</a>
+ <div id="loader-wrapper">
+  <div class="spinner"></div>
+</div>
  <div class="search-container">
         <h1>Search Users</h1>
         
@@ -66,6 +69,7 @@ document.getElementById("edit-form").addEventListener("submit", (e)=>{
         }
 
         e.target.submit()
+        document.getElementById("loader-wrapper").style.display = "flex";
 
 })
 
@@ -81,6 +85,7 @@ document.getElementById("close-btn").addEventListener("click", ()=>{
         const value = searchForm.elements['email'].value.trim()
         if(value == "all"){
             e.target.submit()
+            document.getElementById("loader-wrapper").style.display = "flex";
             return
         }else if(value == ""){
             Swal.fire({
@@ -99,6 +104,7 @@ document.getElementById("close-btn").addEventListener("click", ()=>{
         }
 
         e.target.submit()
+        document.getElementById("loader-wrapper").style.display = "flex";
         
     })
 

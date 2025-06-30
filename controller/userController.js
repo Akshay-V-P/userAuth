@@ -9,6 +9,10 @@ const registerUser = async (req, res) => {
         if (user) {
             return res.render('user/login', { message: "User already exists"})
         }
+        const findUsername = await userSchema.findOne({ username: username })
+        
+        if (findUsername) return res.render('user/register', { message: "Username already exists" })
+        
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = new userSchema({
             email,

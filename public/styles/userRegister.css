@@ -76,3 +76,15 @@ body{
 .signup label:hover{
   text-decoration: underline;
 }
+
+#loader {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255,255,255,0.8);
+    text-align: center;
+    padding-top: 20%;
+    font-size: 30px;
+  }
