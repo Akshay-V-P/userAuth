@@ -22,6 +22,10 @@ router.post('/edit', adminController.editUser)
 
 router.post('/delete/:_id', adminController.deleteUser)
 
+router.get('/addUser', adminAuth.checkSession, adminController.loadAddUser)
+
+router.post('/addUser', adminController.addUser)
+
 
 
 

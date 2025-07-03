@@ -35,7 +35,8 @@ const login = async (req, res) => {
 
 const loadDashboard = async (req, res) => {
     const users = await userModel.find({})
-    res.render('admin/dashboard')
+
+    res.render('admin/dashboard', {users:users})
 }
 
 const logout = (req, res) => {
@@ -85,6 +86,39 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const loadAddUser = (req, res) => {
+    res.render('admin/registerUser')
+}
+
+const addUser = async (req, res) => {
+    try {
+        const { username, email, password } = req.body
+        const user = await userModel.findOne({ email })
+    
+        if (user) return res.render('admin/addUser', { message: "User already exist" })
+    
+        const findUsername = await userModel.findOne({ username })
+    
+        if (findUsername) return res.render('admin/addUser', { message: "Username already exist" })
+    
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const newUser = new userModel({
+            email,
+            password: hashedPassword,
+            username
+        })
+
+        await newUser.save()
+        res.redirect('/admin/dashboard')
+    } catch (error) {
+        console.log(error)
+        res.render('error/error', {error})
+    }
+
+    
+    
+}
+
 
 module.exports = {
     loadLogin,
@@ -94,5 +128,7 @@ module.exports = {
     searchUser,
     searchPost,
     editUser,
-    deleteUser
+    deleteUser,
+    loadAddUser,
+    addUser
 }

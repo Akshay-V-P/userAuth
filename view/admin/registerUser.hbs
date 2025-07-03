@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="/styles/registerUser.css">
+<div id="loader">Loading...</div>
+<div class="container">
+
+<div class="registration form">
+      <header>Add User</header>
+      <form action="/admin/addUser" method="post" id="submitForm">
+      <input type="text" id="message" value="{{{message}}}" name="message" hidden>
+        <input name="username" type="text" id="username" placeholder="Enter Username">
+        <input name="email" type="text" id="email" placeholder="Enter your email">
+        <input name="password" type="password" id="password" placeholder="Create a password">
+        <input name="conformPassword" type="password" id="conformPassword" placeholder="Confirm your password">
+        <input type="submit" id="submitBtn" class="button" value="Add">
+      </form>
+      
+</div>
+</div>
+
+<script>
+  const form = document.getElementById('submitForm')
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value.trim()
+      const conformPassword = document.getElementById('conformPassword').value
+      const username = document.getElementById('username').value
+      if(email == "" || password == "" || conformPassword == "" || username == ""){
+          Swal.fire({
+          title: "Require all fields",
+          text: "",
+          icon: "error"
+        });
+          return;
+      }else if(!isValidEmail(email)){
+          Swal.fire({
+          title: "INVALID EMAIL",
+          text: "",
+          icon: "error"
+        });
+          return
+      }else if(!isValidUsername(username) && username.length > 6){
+          Swal.fire({
+          title: "Usernames can only have: \n- Lowercase Letters (a-z) \n- Numbers (0-9) \n- Underscores (_)\n Length above 6",
+          text: "",
+          icon: "error"
+        });
+          return
+      }else if(password.length < 6){
+          Swal.fire({
+          title: "Too Small",
+          text: "Password length should be greater than 6",
+          icon: "error"
+        });
+          return;
+      }else if(password != conformPassword){
+          Swal.fire({
+          title: "Mismatched password",
+          text: "",
+          icon: "error"
+        });
+          return;
+      }
+
+      e.target.submit()
+      document.getElementById("loader").style.display = "block";
+  })
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidUsername(username){
+  return /^[a-z0-9_]+$/.test(username)
+}
+
+const message = document.getElementById('message').value;
+if(message){
+  Swal.fire({
+    title: message,
+    text: "",
+    icon: "error"
+  });
+}
+
+</script>

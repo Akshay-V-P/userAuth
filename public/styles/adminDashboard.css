@@ -212,6 +212,15 @@
   animation: spin 1s linear infinite;
 }
 
+#adduser{
+    text-decoration: none;
+    color: #eee;
+    background-color: #4CAF50;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
