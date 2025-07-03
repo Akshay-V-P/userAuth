@@ -14,17 +14,17 @@ router.get('/dashboard', adminAuth.checkSession, adminController.loadDashboard)
 
 router.get('/logout', adminController.logout)
 
-router.post('/search', adminController.searchPost)
+router.post('/search', adminAuth.checkSession, adminController.searchPost)
 
-router.get('/search', adminController.searchUser)
+router.get('/search',adminAuth.checkSession, adminController.searchUser)
 
-router.post('/edit', adminController.editUser)
+router.post('/edit',adminAuth.checkSession, adminController.editUser)
 
-router.post('/delete/:_id', adminController.deleteUser)
+router.post('/delete/:_id',adminAuth.checkSession, adminController.deleteUser)
 
 router.get('/addUser', adminAuth.checkSession, adminController.loadAddUser)
 
-router.post('/addUser', adminController.addUser)
+router.post('/addUser',adminAuth.checkSession, adminController.addUser)
 
 
 

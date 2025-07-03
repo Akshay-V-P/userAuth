@@ -78,7 +78,6 @@ const deleteUser = async (req, res) => {
     try {
         const _id = req.params._id
         const user = await userModel.findOneAndDelete({ _id: _id })
-        console.log(req.session.user)
         req.session.user = null
         res.redirect("/admin/dashboard")
     } catch (err) {
